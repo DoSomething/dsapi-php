@@ -1,7 +1,8 @@
 
-
 DSAPI API Client for PHP
 =========
+
+[![wercker status](https://app.wercker.com/status/8f25300da97129a60caeaa39487ad461 "wercker status")](https://app.wercker.com/project/bykey/8f25300da97129a60caeaa39487ad461)
 
 A PHP wrapper for the DSAPI REST API.
 
