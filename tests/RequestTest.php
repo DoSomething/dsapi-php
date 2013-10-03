@@ -111,5 +111,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $RequestClient->get('method');
     }
 
+    /**
+     * @expectedException Exception
+     */
+    public function testRequestCurlNotFoundErrorThrowsException()
+    {
+        $RequestClient = new Request(123);
+        $RequestClient->base_endpoint = $this->mock_endpoints[400];
+        $RequestClient->get('method');
+    }
+
 
 }
