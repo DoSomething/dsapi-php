@@ -105,13 +105,26 @@ class Request
     private function _call() {
         $result = curl_exec($this->_curl);
 
-        $info = curl_getinfo($this->_curl);
+        $this->request_info = curl_getinfo($this->_curl);
 
         if(curl_error($this->_curl)) {
             throw new Exception(curl_error($this->_curl));
         }
 
-        return array();
+        // We will need a mock service to test these response codes
+        // Our we could create a response object where we the response
+        // code can be overriden
+        switch ($this->request_info['http_code']) {
+            case 404:
+                throw new Exception("Invalid endpoint");
+                break;
+            default:
+                throw new Exception("Unknown error");
+                break;
+            case 200:
+                return $result;
+                break;
+        }
     }
 
     /**

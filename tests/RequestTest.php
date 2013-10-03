@@ -2,6 +2,12 @@
 
 class RequestTest extends PHPUnit_Framework_TestCase
 {
+    public $mock_endpoints = array(
+        200 => 'http://www.mocky.io/v2/524da317471a7e720392417e',
+        404 => 'http://www.mocky.io/v2/524da30b471a7e720392417c',
+        500 => 'http://www.mocky.io/v2/524da284471a7e6f0392417b'
+    );
+
     /**
      * @expectedException Exception
      */
@@ -63,8 +69,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testGetRequest()
     {
         $RequestClient = new Request(123);
+        $RequestClient->base_endpoint = $this->mock_endpoints[200];
         $response = $RequestClient->get('method');
-        return $this->assertTrue(is_array($response));
+        return $this->assertFalse(is_null($response));
     }
 
     /**
@@ -79,8 +86,9 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testPostRequest()
     {
         $RequestClient = new Request(123);
+        $RequestClient->base_endpoint = $this->mock_endpoints[200];
         $response = $RequestClient->post('method');
-        return $this->assertTrue(is_array($response));
+        return $this->assertFalse(is_null($response));
     }
 
     /**
@@ -90,6 +98,16 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         $RequestClient = new Request(123);
         $RequestClient->__destruct();
+        $RequestClient->get('method');
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testRequestCurlUnknownErrorThrowsException()
+    {
+        $RequestClient = new Request(123);
+        $RequestClient->base_endpoint = $this->mock_endpoints[500];
         $RequestClient->get('method');
     }
 
