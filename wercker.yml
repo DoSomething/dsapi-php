@@ -1,0 +1,15 @@
+box: wercker/php
+build:
+    steps:
+        - script:
+            name: Activate PHP 5.3
+            code: |-
+                phpenv global 5.3
+        - script:
+            name: install dependencies
+            code: |-
+                composer install --no-interaction
+        - script:
+            name: PHPUnit integration tests
+            code: |-
+                phpunit --bootstrap vendor/autoload.php tests
