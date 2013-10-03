@@ -25,10 +25,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $token = 123;
         $RequestClient = new Request(123);
         
-        $params = array(
-            'a' => 1,
-            'b' => 2
-        );
+        $params = array('a' => 1,'b' => 2);
 
         $url = $RequestClient->buildURL('method', $params);
         $expected = $RequestClient->base_endpoint . '/method?a=1&b=2';
@@ -53,4 +50,38 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $RequestClient = new Request(123);
         $RequestClient->buildURL();
     }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testGetRequestMissingMethodThrowsException()
+    {
+        $RequestClient = new Request(123);
+        $RequestClient->get();
+    }
+
+    public function testGetRequest()
+    {
+        $RequestClient = new Request(123);
+        $response = $RequestClient->get('method');
+        return $this->assertTrue(is_array($response));
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testPostRequestMissingMethodThrowsException()
+    {
+        $RequestClient = new Request(123);
+        $RequestClient->post();
+    }
+
+    public function testPostRequest()
+    {
+        $RequestClient = new Request(123);
+        $response = $RequestClient->post('method');
+        return $this->assertTrue(is_array($response));
+    }
+
+
 }

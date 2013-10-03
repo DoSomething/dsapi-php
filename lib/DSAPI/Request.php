@@ -18,6 +18,13 @@ class Request
     private $_access_token;
 
     /**
+     * Curl client
+     */
+    private $_curl;
+
+
+
+    /**
      * Constructor
      *
      * @param array $access_token
@@ -30,6 +37,14 @@ class Request
             );
         }
         $this->_setAccessToken($access_token);
+
+        $this->_curl = curl_init();
+        curl_setopt($this->_curl, CURLOPT_USERAGENT, 'DSAPI-PHP/1.0.0');
+        curl_setopt($this->_curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($this->_curl, CURLOPT_HEADER, 1);
+        curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->_curl, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($this->_curl, CURLOPT_TIMEOUT, 600);
     }
 
     /**
@@ -57,6 +72,9 @@ class Request
     /**
      * Helper method to build API request URL
      *
+     * @param string  $method
+     * @param array  $params
+     *
      * @return string
      */
     public function buildURL($method, $params = array())
@@ -68,5 +86,44 @@ class Request
         }
         
         return $url;
+    }
+
+    /**
+     * Method that makes request to the API
+     * @param string  $method
+     * @param array  $params
+     *
+     * @return array
+     */
+    private function _call() {
+        return array();
+    }
+
+    /**
+     * Convience method for get requests
+     * @param string  $method
+     * @param array  $params
+     *
+     * @return array
+     */
+    public function get($method, $params = array()) {
+        $url = $this->buildURL($method, $params = array());
+        curl_setopt($this->_curl, CURLOPT_URL, $url);
+        return $this->_call();
+    }
+
+    /**
+     * Convience method for post requests
+     * @param string  $method
+     * @param array  $params
+     *
+     * @return array
+     */
+    public function post($method, $params = array()) {
+        $url = $this->buildURL($method, $params = array());
+        curl_setopt($this->_curl, CURLOPT_URL, $url);
+        curl_setopt($this->_curl, CURLOPT_POST, true);
+        curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $params);
+        return $this->_call();
     }
 }
