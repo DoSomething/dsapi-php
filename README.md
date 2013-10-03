@@ -15,3 +15,4 @@ Requirements
 Roadmap
 -
 * Update to follow "psr-0" standard
+* Create a better mock object for http requests.  Tests will fail if internet connection is not available

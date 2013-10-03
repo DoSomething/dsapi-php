@@ -121,5 +121,4 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $RequestClient->get('method');
     }
 
-
 }
