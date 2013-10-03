@@ -12,3 +12,6 @@ Requirements
 * PHP 5 (Tested against 5.3)
 * cURL extension
 
+Roadmap
+-
+* Update to follow "psr-0" standard
