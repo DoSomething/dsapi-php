@@ -83,5 +83,15 @@ class RequestTest extends PHPUnit_Framework_TestCase
         return $this->assertTrue(is_array($response));
     }
 
+    /**
+     * @expectedException Exception
+     */
+    public function testRequestCurlErrorThrowsException()
+    {
+        $RequestClient = new Request(123);
+        $RequestClient->__destruct();
+        $RequestClient->get('method');
+    }
+
 
 }

@@ -22,8 +22,6 @@ class Request
      */
     private $_curl;
 
-
-
     /**
      * Constructor
      *
@@ -45,6 +43,15 @@ class Request
         curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($this->_curl, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($this->_curl, CURLOPT_TIMEOUT, 600);
+    }
+
+    /**
+     * Destructor
+     *
+     * @return void
+     */
+    function __destruct() {
+        curl_close($this->_curl);
     }
 
     /**
@@ -96,6 +103,14 @@ class Request
      * @return array
      */
     private function _call() {
+        $result = curl_exec($this->_curl);
+
+        $info = curl_getinfo($this->_curl);
+
+        if(curl_error($this->_curl)) {
+            throw new Exception(curl_error($this->_curl));
+        }
+
         return array();
     }
 

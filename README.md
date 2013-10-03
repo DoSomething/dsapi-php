@@ -15,3 +15,4 @@ Requirements
 Roadmap
 -
 * Update to follow "psr-0" standard
+* Create mock service for testing requests.  Apiary.io looks promising
