@@ -5,4 +5,4 @@ if (!function_exists('curl_init')) {
 }
 
 require(dirname(__FILE__) . '/DSAPI/Request.php');
-require(dirname(__FILE__) . '/DSAPI/Users.php');
+require(dirname(__FILE__) . '/DSAPI/UsersResource.php');
