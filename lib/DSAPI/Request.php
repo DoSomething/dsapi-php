@@ -53,4 +53,20 @@ class Request
     {
         return $this->_access_token;
     }
+
+    /**
+     * Helper method to build API request URL
+     *
+     * @return string
+     */
+    public function buildURL($method, $params = array())
+    {
+        $url = $this->base_endpoint . '/' . $method;
+
+        if (!empty($params)) {
+            $url .= '?' . http_build_query($params);
+        }
+        
+        return $url;
+    }
 }
