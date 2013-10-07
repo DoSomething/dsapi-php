@@ -148,7 +148,7 @@ class Request
      * @return array
      */
     public function post($method, $params = array()) {
-        $url = $this->buildURL($method, $params = array());
+        $url = $this->buildURL($method);
         curl_setopt($this->_curl, CURLOPT_URL, $url);
         curl_setopt($this->_curl, CURLOPT_POST, true);
         curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $params);
