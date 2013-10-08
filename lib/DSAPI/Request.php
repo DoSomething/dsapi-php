@@ -10,7 +10,7 @@ class Request
 	/**
      * Base API endpoint
      */
-    public $base_endpoint = 'http://api.dosomething.org/v1.0';
+    public $base_endpoint = 'https://api.dosomething.org/v1.0';
 
     /**
      * OAuth Access Token
